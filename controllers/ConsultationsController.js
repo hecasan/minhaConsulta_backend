@@ -29,4 +29,18 @@ const createConsultation = (req, res) => {
   });
 };
 
-module.exports = { getAllConsultations, createConsultation };
+const updateConsultation = (req, res) => {
+  const { id } = req.params;
+  const { date, doctor, specialty, status, userId } = req.body;
+
+  const sql = `UPDATE consultations SET date = ?, doctor = ?, specialty = ?, status = ?, userId = ? WHERE id = ?`;
+  const params = [date, doctor, specialty, status, userId, id];
+  db.run(sql, params, function(err) {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+    res.json({ message: 'Consulta atualizada com sucesso.' });
+  });
+};
+
+module.exports = { getAllConsultations, createConsultation, updateConsultation };

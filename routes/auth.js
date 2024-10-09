@@ -159,6 +159,20 @@ router.delete('/users/:id', (req, res) => {
      res.status(200).json({ message: 'Usuário deletado com sucesso.' });
    });
  });
+
+
+ router.put('/consultations/:id', (req, res) => {
+  const { id } = req.params;
+  const { date, doctor, specialty, status, userId } = req.body;
+
+  db.run('UPDATE consultations SET date = ?, doctor = ?, specialty = ?, status = ?, userId = ? WHERE id = ?', [date, doctor, specialty, status, userId, id], function (err) {
+    if (err) {
+      console.error('Erro ao atualizar consulta:', err);
+      return res.status(500).json({ message: 'Erro ao atualizar a consulta.' });
+    }
+    res.status(200).json({ message: 'Consulta atualizada com sucesso.' });
+  });
+});
  
 // Rota para login
 router.post('/login', (req, res) => {

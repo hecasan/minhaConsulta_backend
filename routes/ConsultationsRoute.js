@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getAllConsultations, createConsultation } = require('../controllers/ConsultationsController');
+const { getAllConsultations, createConsultation, updateConsultation } = require('../controllers/consultationsController');
 
-// Rota para obter todas as consultas
+
 router.get('/consultations', getAllConsultations);
-
-// Rota para criar uma nova consulta
 router.post('/consultations', createConsultation);
+router.put('/consultations/:id', updateConsultation);
 
 module.exports = router;
