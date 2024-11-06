@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getAllConsultations, createConsultation, updateConsultation } = require('../controllers/consultationsController');
+const consultationsController = require('../controllers/ConsultationsController');
+const authMiddleware = require('../middleware/auth');
 
-
-router.get('/consultations', getAllConsultations);
-router.post('/consultations', createConsultation);
-router.put('/consultations/:id', updateConsultation);
+router.get('/consultations', consultationsController.getAllConsultations);
+router.post('/consultations', authMiddleware, consultationsController.createConsultation);
+router.put('/consultations/:id', authMiddleware, consultationsController.updateConsultation);
+router.get('/user-role', consultationsController.getUserRole);
 
 module.exports = router;
